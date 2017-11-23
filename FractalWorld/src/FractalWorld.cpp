@@ -9,7 +9,7 @@
 #include <iostream>
 using namespace std;
 
-//Hello -Paul
+//Hello
 
 int main() {
 	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
