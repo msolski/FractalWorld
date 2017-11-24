@@ -7,6 +7,8 @@
 //============================================================================
 
 #include <iostream>
+#include "DiamondSquare.hpp"
+
 using namespace std;
 
 //Hello -Paul
