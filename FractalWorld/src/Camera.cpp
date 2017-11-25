@@ -1,7 +1,7 @@
 #include <stdio.h>
+#include <math.h>
 #include "Camera.hpp"
 #include "Matrix.hpp"
-
 
 bool DEBUG = false;
 
@@ -9,7 +9,7 @@ Camera::Camera(){
 	eye.x = 5.0, eye.y = 5.0, eye.z = 10.0;
 	ref.x = 0.0, ref.y = 0.0, ref.z = 0.0;
 	viewup.x = 0.0,viewup.y = 1.0, viewup.z = 0.0;
-	aspect = 1.0, viewAngle = 40.0, nearDist = 1.0, farDist = 30.0;
+	aspect = 1.0, viewAngle = 40.0, nearDist = 0.0, farDist = 50.0;
 	setViewNorm();
 }
 
@@ -43,18 +43,15 @@ void Camera::setViewNorm() {
 	viewNorm.set(x, y, z);
 }
 
-void Camera::rotate(GLfloat rx, GLfloat ry, GLfloat rz, GLfloat angle){ //w.r.p.t WC
-	Matrix *m =  new Matrix();
-	m->rotate(rx, ry, rz, angle);
-	GLfloat vector[4];
-	vector[0] = eye.x;
-	vector[1] = eye.y;
-	vector[2] = eye.z;
-	vector[3] = 1;
-	m->multiply_vector(vector);
-	eye.x = vector[0];
-	eye.y = vector[1];
-	eye.z = vector[2];
+// This rotates the reference point around the camera, for the purposes
+// of being able to look around, instead of focusing on a single object
+void Camera::rotateY(GLfloat angle){
+	GLfloat x2, z2;
+	x2 = cos(angle) * (ref.x-eye.x) - sin(angle) * (ref.z-eye.z) + eye.x;
+	z2 = sin(angle) * (ref.z-eye.z) + cos(angle) * (ref.z-eye.z) + eye.z;
+
+	ref.x = x2;
+	ref.z = z2;
 }
 
 void Camera::translate(GLfloat tx, GLfloat ty, GLfloat tz){ //w.r.p.t WC

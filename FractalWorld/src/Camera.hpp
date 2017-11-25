@@ -25,7 +25,7 @@ class Camera {
 	void printCamera(void);
 	void setDefaultCamera();
 
-	void rotate(GLfloat rx, GLfloat rz, GLfloat ry, GLfloat angle);
+	void rotateY(GLfloat angle);
 	void translate(GLfloat tx, GLfloat ty, GLfloat tz);
 	void setViewVolume(float viewAngle, float aspect, float Near, float Far);
 	void setAspect(float aspect);
