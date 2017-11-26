@@ -6,9 +6,6 @@
 #include "Light.hpp"
 using namespace std;
 
-//Hello -Paul
-//Sup -Michael
-
 /* ===========================
  * 			CONTROLS
  * ===========================
@@ -52,7 +49,7 @@ void display(void) {
 	// THESE SPHERES ARE FOR DEBUGGING CAMERA AND LIGHTING AND STUFF
 	glutSolidSphere(1.0, 20, 20);
 	glTranslatef(0, 0, 10);
-	glutSolidSphere(0.9, 20, 20);
+	glutSolidSphere(1.0, 20, 20);
 	glTranslatef(0, 0, 10);
 
 	glFlush();
