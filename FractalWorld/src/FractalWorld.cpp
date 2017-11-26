@@ -3,6 +3,7 @@
 #include <iostream>
 #include "DiamondSquare.hpp"
 #include "Camera.hpp"
+#include "Light.hpp"
 using namespace std;
 
 //Hello -Paul
@@ -24,6 +25,7 @@ GLint winWidth = 800, winHeight = 800;
 
 // World Objects
 Camera myCamera;
+Light myLight;
 
 void init(void) {
 	glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -32,6 +34,8 @@ void init(void) {
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_BLEND);
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glShadeModel(GL_SMOOTH);
 }
@@ -41,8 +45,10 @@ void display(void) {
 	myCamera.setProjectionMatrix();
 
 	//Draw world
+	myLight.draw();
+
 	// THIS SPHERE IS FOR DEBUGGING CAMERA AND LIGHTING AND STUFF
-	glutWireSphere(1.0, 20, 20);
+	glutSolidSphere(1.0, 20, 20);
 
 	glFlush();
 	glutSwapBuffers();
@@ -70,11 +76,11 @@ void cameraRotate(int key, int x, int y){
 void cameraMove(unsigned char key, int x, int y){
 	switch(key){
 	case ' ':
-		myCamera.translate(1);
+		myCamera.translate(0.5);
 		break;
 	case 'v':
 	case 'V':
-		myCamera.translate(-1);
+		myCamera.translate(-0.5);
 		break;
 	}
 	glutPostRedisplay();
