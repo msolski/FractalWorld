@@ -50,7 +50,7 @@ void display(void) {
 	glutSolidSphere(1.0, 20, 20);
 	glTranslatef(0, 0, 10);
 	glutSolidSphere(1.0, 20, 20);
-	glTranslatef(0, 0, 10);
+	glTranslatef(0, 0, -10);
 
 	glFlush();
 	glutSwapBuffers();
