@@ -22,6 +22,7 @@ using namespace std;
 
 // Global Variables
 GLint winWidth = 800, winHeight = 800;
+GLdouble time;
 
 // World Objects
 Camera myCamera;
@@ -29,7 +30,7 @@ Light myLight;
 
 void init(void) {
 	glClearColor(0.0, 0.0, 0.0, 1.0);
-
+	time = 0;
 	glEnable(GL_LINE_SMOOTH);
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_BLEND);
@@ -73,6 +74,11 @@ void cameraRotate(int key, int x, int y){
 	glutPostRedisplay();
 }
 
+void nightDay(){
+	myLight.rotate(0.00001);
+	glutPostRedisplay();
+}
+
 void cameraMove(unsigned char key, int x, int y){
 	switch(key){
 	case ' ':
@@ -100,6 +106,7 @@ int main(int argc, char** argv) {
 	glutDisplayFunc(display);
 	glutKeyboardFunc(cameraMove);
 	glutSpecialFunc(cameraRotate);
+	glutIdleFunc(nightDay);
 	/*
 	glutMotionFunc(mouseMotion);
 	glutMouseFunc(mouseAction);

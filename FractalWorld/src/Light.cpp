@@ -1,16 +1,17 @@
 #include "Light.hpp"
 #include <stdio.h>
 #include <GL/glut.h>
+#include <math.h>
 
 Light::Light() {
-	aI = 0.3;
+	aI = 0.6;
 	dI = 0.9;
 	sI = 0.8;
 	On = true;
-	Day = false;
+	Day = true;
 
-	pos[0] = 0.0;
-	pos[1] = 10.0;
+	pos[0] = 10.0;
+	pos[1] = 0.0;
 	pos[2] = 0.0;
 
 	colourDay[0] = 1.0;
@@ -77,4 +78,26 @@ void Light::draw(){
 		glEnable(GL_LIGHTING);
 	}
 
+}
+
+void Light::rotate(GLfloat angle){
+	GLfloat y2, x2;
+	x2 = pos[0]*cos(angle) - pos[1]*sin(angle);
+	y2 = pos[1]*cos(angle) + pos[0]*sin(angle);
+
+	pos[0] = x2;
+	pos[1] = y2;
+
+	if(pos[0] < -9.99){
+		resetPos();
+		if(Day)
+			Day = false;
+		else
+			Day = true;
+	}
+}
+
+void Light::resetPos(){
+	pos[0] = 10;
+	pos[1] = 0;
 }

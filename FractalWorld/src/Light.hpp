@@ -22,6 +22,8 @@ class Light {
 
 		Light();
 		void draw();
+		void rotate(GLfloat angle);
+		void resetPos();
 
 };
 
