@@ -1,4 +1,5 @@
 #include <GL/glut.h>
+#include <stdio.h>
 #include <iostream>
 #include "DiamondSquare.hpp"
 #include "Camera.hpp"
@@ -6,6 +7,17 @@ using namespace std;
 
 //Hello -Paul
 //Sup -Michael
+
+/* ===========================
+ * 			CONTROLS
+ * ===========================
+ * Up - make the camera look upwards
+ * Down - make the camera look downwards
+ * Right - rotate the camera to the right
+ * Left - rotate the camera to the left
+ * Space - Move the camera forwards
+ * 'V' - Move the camera backwards
+ */
 
 // Global Variables
 GLint winWidth = 800, winHeight = 800;
@@ -45,10 +57,10 @@ void cameraRotate(int key, int x, int y){
 		myCamera.ref.set(myCamera.ref.x, myCamera.ref.y-0.5, myCamera.ref.z);
 		break;
 	case GLUT_KEY_LEFT:
-		myCamera.rotateY(-0.05);
+		myCamera.rotate(-0.05);
 		break;
 	case GLUT_KEY_RIGHT:
-		myCamera.rotateY(0.05);
+		myCamera.rotate(0.05);
 		break;
 	}
 
@@ -57,18 +69,19 @@ void cameraRotate(int key, int x, int y){
 
 void cameraMove(unsigned char key, int x, int y){
 	switch(key){
-	case 'V':
-	case 'v':
-		//Move back
-		break;
 	case ' ':
-		//Move forward
+		myCamera.translate(1);
+		break;
+	case 'v':
+	case 'V':
+		myCamera.translate(-1);
 		break;
 	}
 	glutPostRedisplay();
 }
 
 int main(int argc, char** argv) {
+	setbuf(stdout, NULL);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowPosition(100, 100);
