@@ -29,6 +29,7 @@ class Camera {
 	void translate(GLfloat dist);
 	void setViewVolume(float viewAngle, float aspect, float Near, float Far);
 	void setAspect(float aspect);
+	void turnAround();
 
 	void setProjectionMatrix();
 

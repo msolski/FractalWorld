@@ -18,6 +18,7 @@ using namespace std;
  * Left - rotate the camera to the left
  * Space - Move the camera forwards
  * 'V' - Move the camera backwards
+ * 'B' - Turn the camera 180 degrees around
  */
 
 // Global Variables
@@ -48,8 +49,11 @@ void display(void) {
 	//Draw world
 	myLight.draw();
 
-	// THIS SPHERE IS FOR DEBUGGING CAMERA AND LIGHTING AND STUFF
+	// THESE SPHERES ARE FOR DEBUGGING CAMERA AND LIGHTING AND STUFF
 	glutSolidSphere(1.0, 20, 20);
+	glTranslatef(0, 0, 10);
+	glutSolidSphere(0.9, 20, 20);
+	glTranslatef(0, 0, 10);
 
 	glFlush();
 	glutSwapBuffers();
@@ -87,6 +91,10 @@ void cameraMove(unsigned char key, int x, int y){
 	case 'v':
 	case 'V':
 		myCamera.translate(-0.5);
+		break;
+	case 'b':
+	case 'B':
+		myCamera.turnAround();
 		break;
 	}
 	glutPostRedisplay();

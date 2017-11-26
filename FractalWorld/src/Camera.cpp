@@ -76,6 +76,14 @@ void Camera::translate(GLfloat dist){
 	delete v;
 }
 
+void Camera::turnAround(){
+	Vector *v = new Vector(-(ref.x-eye.x), -(ref.y-eye.y), -(ref.z-eye.z));
+
+	ref.x += 2 * v->x;
+	ref.y += 2 * v->y;
+	ref.z += 2 * v->z;
+}
+
 void Camera::setProjectionMatrix() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
