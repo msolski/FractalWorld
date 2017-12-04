@@ -17,7 +17,7 @@
 
 //Must be of the form 2^(n) + 1
 //Max is 65 :(
-int const S = 5;
+int const S = 33;
 
 //Prototype functions
 

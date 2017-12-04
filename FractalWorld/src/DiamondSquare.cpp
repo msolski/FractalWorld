@@ -8,8 +8,10 @@
 #include "DiamondSquare.hpp"
 
 int *Terrain;
-int modulo = 25;
-int randomneg = 0;
+int modulo = rand()%1000;	//Bigger number, higher peaks and lower valleys
+int randomneg = modulo/2;	//allows a range of [modulo/2, -modulo/2]
+int ScaleHeight = modulo/10;//Scale of the Terrain, Higher value less height difference
+int ScaleMapSize = 5;
 int step_size = S-1;
 
 void PrintArray(int *Terrain){
@@ -214,12 +216,12 @@ void MatrixOfPoints(Point *Points, int *Terrain){
 			tempy = j;				//Terrain integer y value
 			tempz = Terrain[i*S+j];	//Terrain integer z value
 
-			tempfx = (float)tempx/10;	//Sets GLfloat x value
-			tempfy = (float)tempy/10;	//Sets GLfloat y value
-			tempfz = (float)tempz/10;	//Sets GLfloat z value
+			tempfx = (float)tempx*ScaleMapSize;	//Sets GLfloat x value
+			tempfy = (float)tempy*ScaleMapSize;	//Sets GLfloat y value
+			tempfz = (float)tempz/ScaleHeight;	//Sets GLfloat z value
 
 			//Initializes the point at Points[x][y] to our values
-			Points[S*i + j].set(tempfx,tempfy,tempfz);
+			Points[S*i + j].set(tempfx,tempfz,tempfy);
 			Points[S*i + j].printPoint();
 
 		}
@@ -227,9 +229,9 @@ void MatrixOfPoints(Point *Points, int *Terrain){
 }
 
 void DrawPoints(Point *Points){
-
 	int i,j;
 
+	/*
 	for(i=0;i<S;i++){
 		for(j=0;j<S;j++){
 			Point p1 = Points[S*i + j];
@@ -241,7 +243,8 @@ void DrawPoints(Point *Points){
 		}
 	}
 
-	/*
+	*/
+
 
 	//Connects points to their next door neighbor
 	for (i=0;i<S;i++){
@@ -288,6 +291,4 @@ void DrawPoints(Point *Points){
 											// p3		p4
 			}
 		}
-
-		*/
 }

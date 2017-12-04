@@ -27,7 +27,9 @@ Camera myCamera;
 Light myLight;
 
 //Array of Points
-Point *Points;
+Point *Points = (Point *)malloc(S*S*sizeof(Point));
+
+
 
 void init(void) {
 	glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -50,13 +52,13 @@ void display(void) {
 	myLight.draw();
 
 	// THESE SPHERES ARE FOR DEBUGGING CAMERA AND LIGHTING AND STUFF
-	glutSolidSphere(1.0, 20, 20);
-	glTranslatef(0, 0, 10);
-	glutSolidSphere(1.0, 20, 20);
-	glTranslatef(0, 0, -10);
+	//glutSolidSphere(1.0, 20, 20);
+	//glTranslatef(0, 0, 10);
+	//glutSolidSphere(1.0, 20, 20);
+	//glTranslatef(0, 0, -10);
 
 	//Should(TM) draw the matrix
-	//DrawPoints(Points);
+	DrawPoints(Points);
 
 	glFlush();
 	glutSwapBuffers();
@@ -112,6 +114,7 @@ int main(int argc, char** argv) {
 	glutCreateWindow("Fractal World - Paul Hohbaum and Michael Solski");
 
 	//Creates a Terrain Matrix of size S (in DiamondSquare.hpp)
+	//Terrain Array
 	int *Terrain = (int *)malloc(S*S*sizeof(int));
 
 	ClearArray(Terrain);
@@ -123,13 +126,13 @@ int main(int argc, char** argv) {
 
 	//Creates a Matrix of points from the Terrain Matrix
 	printf("Array of points from the terrain map\n");
-	Point *Points = (Point *)malloc(S*S*sizeof(Point));
 	MatrixOfPoints(Points,Terrain);
 
 
 	//glewInit(); // for using GSLS
 
 	init();
+	DrawPoints(Points);
 	glutDisplayFunc(display);
 	glutKeyboardFunc(cameraMove);
 	glutSpecialFunc(cameraRotate);
