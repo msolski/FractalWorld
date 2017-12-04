@@ -8,7 +8,7 @@
 #include "DiamondSquare.hpp"
 
 int *Terrain;
-int modulo = 50;
+int modulo = 25;
 int randomneg = 0;
 int step_size = S-1;
 
@@ -201,6 +201,7 @@ void DiamondSquare(int *Terrain){
 	//PrintArray(Terrain);
 }
 
+//Populates an Array of Points using the array of Terrain
 void MatrixOfPoints(Point *Points, int *Terrain){
 
 	GLfloat tempfx,tempfy,tempfz;
@@ -223,4 +224,70 @@ void MatrixOfPoints(Point *Points, int *Terrain){
 
 		}
 	}
+}
+
+void DrawPoints(Point *Points){
+
+	int i,j;
+
+	for(i=0;i<S;i++){
+		for(j=0;j<S;j++){
+			Point p1 = Points[S*i + j];
+			glPointSize(3.0);
+			glBegin(GL_POINTS);
+			glColor3f(0.0,0.0,0.0);
+			glVertex3f(p1.x, p1.y, p1.z);
+			glEnd();
+		}
+	}
+
+	/*
+
+	//Connects points to their next door neighbor
+	for (i=0;i<S;i++){
+		for (j=0;j<S-1;j++){
+			Point p1 = Points[S*i + j];		//p1
+			Point p2 = Points[S*i + j + 1];	//p1		p2
+			glColor3f(1.0,0.0,0.0);
+			glBegin(GL_LINES);
+			glVertex3f(p1.x,p1.y,p1.z);
+			glVertex3f(p2.x,p2.y,p2.z);
+			glEnd();						//p1-------p2
+		}
+	}
+	//Connects points to their downstairs neighbor
+	for (i=0;i<S-1;i++){
+		for (j=0;j<S;j++){
+			Point p1 = Points[S*i + j];		// p1
+			Point p3 = Points[S*(i+1) + j];	// p1-------p2
+											//
+											// p3
+			glColor3f(1.0,0.0,0.0);
+			glBegin(GL_LINES);
+			glVertex3f(p1.x,p1.y,p1.z);
+			glVertex3f(p3.x,p3.y,p3.z);
+			glEnd();						// p1-------p2
+											// |
+											// p3
+		}
+	}
+	//Connects points to their (downstairs + 1) neighbor
+	for (i=0;i<S-1;i++){
+		for (j=0;j<S-1;j++){
+
+			Point p1 = Points[S*i + j];		// p1
+			Point p4 = Points[S*(i+1)+j+1];	// p1-------p2
+											// |
+											// p3		p4
+			glColor3f(1.0,0.0,0.0);
+			glBegin(GL_LINES);
+			glVertex3f(p1.x,p1.y,p1.z);
+			glVertex3f(p4.x,p4.y,p4.z);
+			glEnd();						// p1-------p2
+											// | ---\---
+											// p3		p4
+			}
+		}
+
+		*/
 }

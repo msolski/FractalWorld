@@ -26,6 +26,9 @@ GLdouble time;
 Camera myCamera;
 Light myLight;
 
+//Array of Points
+Point *Points;
+
 void init(void) {
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	time = 0;
@@ -51,6 +54,9 @@ void display(void) {
 	glTranslatef(0, 0, 10);
 	glutSolidSphere(1.0, 20, 20);
 	glTranslatef(0, 0, -10);
+
+	//Should(TM) draw the matrix
+	//DrawPoints(Points);
 
 	glFlush();
 	glutSwapBuffers();

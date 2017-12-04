@@ -30,5 +30,8 @@ void DiamondSquare(int *Terrain);	//The Diamond Square algorithm for Terrain Gen
 //Takes an empty array of points and maps the Terrain values to them;
 void MatrixOfPoints(Point *Points,int *Terrain);
 
+//Takes an array of points and draws them to the screen (in theory)
+void DrawPoints(Point *Points);
+
 
 #endif /* DIAMONDSQUARE_HPP_ */
