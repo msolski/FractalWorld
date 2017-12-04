@@ -6,10 +6,10 @@
 bool DEBUG = false;
 
 Camera::Camera(){
-	eye.x = 5.0, eye.y = 5.0, eye.z = 10.0;
-	ref.x = 0.0, ref.y = 0.0, ref.z = 0.0;
+	eye.x = 150.0, eye.y = 20.0, eye.z = 175.0;
+	ref.x = 113.0, ref.y = 5.0, ref.z = 112.0;
 	viewup.x = 0.0,viewup.y = 1.0, viewup.z = 0.0;
-	aspect = 1.0, viewAngle = 40.0, nearDist = 0.5, farDist = 200.0;
+	aspect = 1.0, viewAngle = 40.0, nearDist = 0.5, farDist = 500.0;
 	setViewNorm();
 }
 

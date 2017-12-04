@@ -51,12 +51,6 @@ void display(void) {
 	//Draw world
 	myLight.draw();
 
-	// THESE SPHERES ARE FOR DEBUGGING CAMERA AND LIGHTING AND STUFF
-	//glutSolidSphere(1.0, 20, 20);
-	//glTranslatef(0, 0, 10);
-	//glutSolidSphere(1.0, 20, 20);
-	//glTranslatef(0, 0, -10);
-
 	//Should(TM) draw the matrix
 	DrawPoints(Points);
 
@@ -67,10 +61,10 @@ void display(void) {
 void cameraRotate(int key, int x, int y){
 	switch(key){
 	case GLUT_KEY_UP:
-		myCamera.ref.set(myCamera.ref.x, myCamera.ref.y+0.5, myCamera.ref.z);
+		myCamera.ref.set(myCamera.ref.x, myCamera.ref.y+1.5, myCamera.ref.z);
 		break;
 	case GLUT_KEY_DOWN:
-		myCamera.ref.set(myCamera.ref.x, myCamera.ref.y-0.5, myCamera.ref.z);
+		myCamera.ref.set(myCamera.ref.x, myCamera.ref.y-1.5, myCamera.ref.z);
 		break;
 	case GLUT_KEY_LEFT:
 		myCamera.rotate(-0.05);
@@ -84,7 +78,7 @@ void cameraRotate(int key, int x, int y){
 }
 
 void nightDay(){
-	myLight.rotate(0.00001);
+	myLight.rotate(0.00007);
 	glutPostRedisplay();
 }
 
@@ -100,6 +94,11 @@ void cameraMove(unsigned char key, int x, int y){
 	case 'b':
 	case 'B':
 		myCamera.turnAround();
+		break;
+	case 'w':
+	case 'W':
+		printf("%.2f, %.2f, %.2f\n", myCamera.eye.x, myCamera.eye.y, myCamera.eye.z);
+		printf("%.2f, %.2f, %.2f\n", myCamera.ref.x, myCamera.ref.y, myCamera.ref.z);
 		break;
 	}
 	glutPostRedisplay();

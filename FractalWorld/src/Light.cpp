@@ -10,7 +10,7 @@ Light::Light() {
 	On = true;
 	Day = true;
 
-	pos[0] = 10.0;
+	pos[0] = 160.0;
 	pos[1] = 0.0;
 	pos[2] = 0.0;
 
@@ -49,31 +49,40 @@ Light::Light() {
 
 void Light::draw(){
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
+	GLfloat amb[4];
 
 	if(Day){
-		glClearColor(0.53, 0.81, 0.98, 1.0);
+		glClearColor(0.53 * pos[1]/200, 0.81 * pos[1]/200, 0.98 * pos[1]/200, 1.0);
 
-		glLightfv(GL_LIGHT0, GL_AMBIENT, ambDay);
+		amb[0] = ambDay[0] * pos[1]/100;
+		amb[1] = ambDay[1] * pos[1]/100;
+		amb[2] = ambDay[2] * pos[1]/100;
+
+		glLightfv(GL_LIGHT0, GL_AMBIENT, amb);
 		glLightfv(GL_LIGHT0, GL_DIFFUSE, diffDay);
 		glLightfv(GL_LIGHT0, GL_SPECULAR, specDay);
 
 		glDisable(GL_LIGHTING);
 		glColor3f(1.0,1.0,0.5);
 		glTranslatef(pos[0],pos[1],pos[2]);
-		glutSolidSphere(0.1, 10, 10);
+		glutSolidSphere(1, 10, 10);
 		glTranslatef(-pos[0],-pos[1],-pos[2]);
 		glEnable(GL_LIGHTING);
 	} else {
-		glClearColor(0.05, 0.05, 0.1, 1.0);
+		glClearColor(0.05 * pos[1]/200, 0.05 * pos[1]/200, 0.1 * pos[1]/200, 1.0);
 
-		glLightfv(GL_LIGHT0, GL_AMBIENT, ambNight);
+		amb[0] = ambNight[0] * pos[1]/100;
+		amb[1] = ambNight[1] * pos[1]/100;
+		amb[2] = ambNight[2] * pos[1]/100;
+
+		glLightfv(GL_LIGHT0, GL_AMBIENT, amb);
 		glLightfv(GL_LIGHT0, GL_DIFFUSE, diffNight);
 		glLightfv(GL_LIGHT0, GL_SPECULAR, specNight);
 
 		glDisable(GL_LIGHTING);
 		glColor3f(0.7,0.7,0.7);
 		glTranslatef(pos[0],pos[1],pos[2]);
-		glutSolidSphere(0.1, 10, 10);
+		glutSolidSphere(1, 10, 10);
 		glTranslatef(-pos[0],-pos[1],-pos[2]);
 		glEnable(GL_LIGHTING);
 	}
@@ -88,7 +97,7 @@ void Light::rotate(GLfloat angle){
 	pos[0] = x2;
 	pos[1] = y2;
 
-	if(pos[0] < -9.99){
+	if(pos[0] < -159.99){
 		resetPos();
 		if(Day)
 			Day = false;
@@ -98,6 +107,6 @@ void Light::rotate(GLfloat angle){
 }
 
 void Light::resetPos(){
-	pos[0] = 10;
+	pos[0] = 160;
 	pos[1] = 0;
 }
