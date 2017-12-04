@@ -228,6 +228,7 @@ void MatrixOfPoints(Point *Points, int *Terrain){
 	}
 }
 
+
 void DrawPoints(Point *Points){
 	int i,j;
 
@@ -243,21 +244,29 @@ void DrawPoints(Point *Points){
 		}
 	}
 
-	*/
+*/
 
 
 	//Connects points to their next door neighbor
-	for (i=0;i<S;i++){
+	for (i=0;i<S-1;i++){
 		for (j=0;j<S-1;j++){
 			Point p1 = Points[S*i + j];		//p1
 			Point p2 = Points[S*i + j + 1];	//p1		p2
-			glColor3f(1.0,0.0,0.0);
-			glBegin(GL_LINES);
+			Point p3 = Points[S*(i+1) + j];
+			Point p4 = Points[S*(i+1) + j + 1];
+
+			glBegin(GL_QUADS);
 			glVertex3f(p1.x,p1.y,p1.z);
 			glVertex3f(p2.x,p2.y,p2.z);
-			glEnd();						//p1-------p2
+			glVertex3f(p4.x,p4.y,p4.z);
+			glVertex3f(p3.x,p3.y,p3.z);
+			glEnd();
+
+						//p1-------p2
 		}
 	}
+
+	/*
 	//Connects points to their downstairs neighbor
 	for (i=0;i<S-1;i++){
 		for (j=0;j<S;j++){
@@ -274,6 +283,7 @@ void DrawPoints(Point *Points){
 											// p3
 		}
 	}
+
 	//Connects points to their (downstairs + 1) neighbor
 	for (i=0;i<S-1;i++){
 		for (j=0;j<S-1;j++){
@@ -289,6 +299,28 @@ void DrawPoints(Point *Points){
 			glEnd();						// p1-------p2
 											// | ---\---
 											// p3		p4
+				}
 			}
+*/
+/*
+	for(i=0;i<S-1;i++){
+		for(j=0;j<S-1;j++){
+
+			Point p1 = Points[S*i + j];
+			Point p2 = Points[S*i + j + 1];
+			Point p3 = Points[S*(i+1) + j];
+
+			glBegin(GL_LINES);
+
+			glVertex3f(p1.x,p1.y,p1.z);
+			glVertex3f(p2.x,p2.y,p2.z);
+			glVertex3f(p3.x,p3.y,p3.z);
+
+
+
 		}
+	}*/
+
+
+
 }

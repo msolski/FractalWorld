@@ -41,7 +41,7 @@ void init(void) {
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glShadeModel(GL_SMOOTH);
+	glShadeModel(GL_FLAT);
 }
 
 void display(void) {
