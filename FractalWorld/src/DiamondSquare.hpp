@@ -13,15 +13,22 @@
 #include <stdio.h>
 #include <math.h>
 
-int const S = 65;
+#include "Point.hpp"
+
+//Must be of the form 2^(n) + 1
+//Max is 65 :(
+int const S = 5;
 
 //Prototype functions
 
-void PrintArray(int[S][S]);
-void SquareStep(int Terrain[S][S],int x, int y, int step_size, int r);
-void DiamondStep(int Terrain[S][S], int x, int y, int step_size, int r);
-void DiamondSquare(int Terrain[S][S]);
+void PrintArray(int *Terrain);	//Prints a 2D array (for debugging)
+void ClearArray(int *Terrain);	//Sets all points in the array to zero
+void SquareStep(int *Terrain,int x, int y, int step_size, int r); 		//Used in Diamond Square
+void DiamondStep(int *Terrain, int x, int y, int step_size, int r);	//Used in Diamond Square
+void DiamondSquare(int *Terrain);	//The Diamond Square algorithm for Terrain Generation
 
+//Takes an empty array of points and maps the Terrain values to them;
+void MatrixOfPoints(Point *Points,int *Terrain);
 
 
 #endif /* DIAMONDSQUARE_HPP_ */

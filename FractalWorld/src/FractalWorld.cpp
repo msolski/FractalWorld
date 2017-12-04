@@ -105,6 +105,22 @@ int main(int argc, char** argv) {
 	glutInitWindowSize(winWidth, winHeight);
 	glutCreateWindow("Fractal World - Paul Hohbaum and Michael Solski");
 
+	//Creates a Terrain Matrix of size S (in DiamondSquare.hpp)
+	int *Terrain = (int *)malloc(S*S*sizeof(int));
+
+	ClearArray(Terrain);
+	printf("Before diamond square\n");
+	PrintArray(Terrain);
+	DiamondSquare(Terrain);
+	printf("After diamond square\n");
+	PrintArray(Terrain);
+
+	//Creates a Matrix of points from the Terrain Matrix
+	printf("Array of points from the terrain map\n");
+	Point *Points = (Point *)malloc(S*S*sizeof(Point));
+	MatrixOfPoints(Points,Terrain);
+
+
 	//glewInit(); // for using GSLS
 
 	init();
