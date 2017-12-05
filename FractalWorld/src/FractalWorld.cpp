@@ -46,6 +46,19 @@ void init(void) {
 	glEnable(GL_COLOR_MATERIAL);
 }
 
+void RedrawWorld(){
+	//Creates a Terrain Matrix of size S (in DiamondSquare.hpp)
+	//Terrain Array
+	int *Terrain = (int *)malloc(S*S*sizeof(int));
+	ClearArray(Terrain);
+	DiamondSquare(Terrain);
+
+	//Creates a Matrix of points from the Terrain Matrix
+	MatrixOfPoints(Points,Terrain);
+	DrawPoints(Points);
+
+}
+
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	myCamera.setProjectionMatrix();
@@ -113,9 +126,15 @@ void cameraMove(unsigned char key, int x, int y){
 	case 'F':
 		glShadeModel(GL_FLAT);
 		break;
+	case'r':
+	case'R':
+		RedrawWorld();
 	}
 	glutPostRedisplay();
 }
+
+
+
 
 int main(int argc, char** argv) {
 	setbuf(stdout, NULL);
@@ -125,18 +144,10 @@ int main(int argc, char** argv) {
 	glutInitWindowSize(winWidth, winHeight);
 	glutCreateWindow("Fractal World - Paul Hohbaum and Michael Solski");
 
-	//Creates a Terrain Matrix of size S (in DiamondSquare.hpp)
-	//Terrain Array
-	int *Terrain = (int *)malloc(S*S*sizeof(int));
-
-	ClearArray(Terrain);
-	DiamondSquare(Terrain);
-
-	//Creates a Matrix of points from the Terrain Matrix
-	MatrixOfPoints(Points,Terrain);
+	RedrawWorld();
 
 	init();
-	DrawPoints(Points);
+	//DrawPoints(Points);
 	glutDisplayFunc(display);
 	glutKeyboardFunc(cameraMove);
 	glutSpecialFunc(cameraRotate);

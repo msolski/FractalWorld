@@ -247,7 +247,7 @@ void DrawPointsWire(Point *Points){
 			Point p3 = Points[S*(i+1) + j];
 			Point p4 = Points[S*(i+1) + j + 1];
 
-			glColor3f(0.0, 0.0, 0.0);
+			glColor3f(0.8, 0.8, 0.8);
 			glBegin(GL_LINE_LOOP);
 			glVertex3f(p1.x,p1.y,p1.z);
 			glVertex3f(p2.x,p2.y,p2.z);
