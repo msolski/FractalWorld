@@ -45,7 +45,6 @@ void Camera::setViewNorm() {
 
 // This rotates the reference point around the camera, for the purposes
 // of being able to look around, instead of focusing on a single object
-// TODO: For some reason, this can't go more than 90 degrees in either direction. Fix?
 void Camera::rotate(GLfloat angle){
 	GLfloat x2, z2;
 	x2 = cos(angle) * (ref.x-eye.x) - sin(angle) * (ref.z-eye.z) + eye.x;
@@ -66,13 +65,13 @@ void Camera::translate(GLfloat dist){
 	printf("v: %.1f, %.1f %.1f\n\n", v->x, v->y, v->z);
 	 */
 
-	eye.x += dist * v->x/4;
-	eye.y += dist * v->y/4;
-	eye.z += dist * v->z/4;
+	eye.x += dist * v->x/5;
+	eye.y += dist * v->y/5;
+	eye.z += dist * v->z/5;
 
-	ref.x += dist * v->x/4;
-	ref.y += dist * v->y/4;
-	ref.z += dist * v->z/4;
+	ref.x += dist * v->x/5;
+	ref.y += dist * v->y/5;
+	ref.z += dist * v->z/5;
 
 	delete v;
 }
