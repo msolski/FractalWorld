@@ -65,7 +65,7 @@ void Light::draw(){
 		glDisable(GL_LIGHTING);
 		glColor3f(1.0,1.0,0.5);
 		glTranslatef(pos[0],pos[1],pos[2]);
-		glutSolidSphere(1, 10, 10);
+		glutSolidSphere(3, 20, 20);
 		glTranslatef(-pos[0],-pos[1],-pos[2]);
 		glEnable(GL_LIGHTING);
 	} else {
@@ -82,7 +82,7 @@ void Light::draw(){
 		glDisable(GL_LIGHTING);
 		glColor3f(0.7,0.7,0.7);
 		glTranslatef(pos[0],pos[1],pos[2]);
-		glutSolidSphere(1, 10, 10);
+		glutSolidSphere(3, 20, 20);
 		glTranslatef(-pos[0],-pos[1],-pos[2]);
 		glEnable(GL_LIGHTING);
 	}

@@ -232,21 +232,6 @@ void MatrixOfPoints(Point *Points, int *Terrain){
 void DrawPoints(Point *Points){
 	int i,j;
 
-	/*
-	for(i=0;i<S;i++){
-		for(j=0;j<S;j++){
-			Point p1 = Points[S*i + j];
-			glPointSize(3.0);
-			glBegin(GL_POINTS);
-			glColor3f(0.0,0.0,0.0);
-			glVertex3f(p1.x, p1.y, p1.z);
-			glEnd();
-		}
-	}
-
-*/
-
-
 	//Connects points to their next door neighbor
 	for (i=0;i<S-1;i++){
 		for (j=0;j<S-1;j++){
@@ -256,71 +241,58 @@ void DrawPoints(Point *Points){
 			Point p4 = Points[S*(i+1) + j + 1];
 
 			glBegin(GL_QUADS);
+				//First Point
+				pointColor(p1.y);
+				glVertex3f(p1.x,p1.y,p1.z);
+
+				//Second point
+				pointColor(p2.y);
+				glVertex3f(p2.x,p2.y,p2.z);
+
+				//Fourth point
+				pointColor(p4.y);
+				glVertex3f(p4.x,p4.y,p4.z);
+
+				//Third point
+				pointColor(p3.y);
+				glVertex3f(p3.x,p3.y,p3.z);
+			glEnd();
+
+		}
+	}
+}
+
+void pointColor(GLfloat y){
+
+	GLfloat r, g, b;
+
+	r = y/15 + 0.2;
+	g = y/18 + 0.2;
+	b = y/25 + 0.25;
+
+	glColor3f(r, g, b);
+
+}
+
+void DrawPointsWire(Point *Points){
+	int i,j;
+
+	//Connects points to their next door neighbor
+	for (i=0;i<S-1;i++){
+		for (j=0;j<S-1;j++){
+			Point p1 = Points[S*i + j];		//p1
+			Point p2 = Points[S*i + j + 1];	//p1		p2
+			Point p3 = Points[S*(i+1) + j];
+			Point p4 = Points[S*(i+1) + j + 1];
+
+			glColor3f(0.0, 0.0, 0.0);
+			glBegin(GL_LINE_LOOP);
 			glVertex3f(p1.x,p1.y,p1.z);
 			glVertex3f(p2.x,p2.y,p2.z);
 			glVertex3f(p4.x,p4.y,p4.z);
 			glVertex3f(p3.x,p3.y,p3.z);
 			glEnd();
 
-						//p1-------p2
 		}
 	}
-
-	/*
-	//Connects points to their downstairs neighbor
-	for (i=0;i<S-1;i++){
-		for (j=0;j<S;j++){
-			Point p1 = Points[S*i + j];		// p1
-			Point p3 = Points[S*(i+1) + j];	// p1-------p2
-											//
-											// p3
-			glColor3f(1.0,0.0,0.0);
-			glBegin(GL_LINES);
-			glVertex3f(p1.x,p1.y,p1.z);
-			glVertex3f(p3.x,p3.y,p3.z);
-			glEnd();						// p1-------p2
-											// |
-											// p3
-		}
-	}
-
-	//Connects points to their (downstairs + 1) neighbor
-	for (i=0;i<S-1;i++){
-		for (j=0;j<S-1;j++){
-
-			Point p1 = Points[S*i + j];		// p1
-			Point p4 = Points[S*(i+1)+j+1];	// p1-------p2
-											// |
-											// p3		p4
-			glColor3f(1.0,0.0,0.0);
-			glBegin(GL_LINES);
-			glVertex3f(p1.x,p1.y,p1.z);
-			glVertex3f(p4.x,p4.y,p4.z);
-			glEnd();						// p1-------p2
-											// | ---\---
-											// p3		p4
-				}
-			}
-*/
-/*
-	for(i=0;i<S-1;i++){
-		for(j=0;j<S-1;j++){
-
-			Point p1 = Points[S*i + j];
-			Point p2 = Points[S*i + j + 1];
-			Point p3 = Points[S*(i+1) + j];
-
-			glBegin(GL_LINES);
-
-			glVertex3f(p1.x,p1.y,p1.z);
-			glVertex3f(p2.x,p2.y,p2.z);
-			glVertex3f(p3.x,p3.y,p3.z);
-
-
-
-		}
-	}*/
-
-
-
 }

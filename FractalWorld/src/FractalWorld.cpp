@@ -16,11 +16,15 @@ using namespace std;
  * Space - Move the camera forwards
  * 'V' - Move the camera backwards
  * 'B' - Turn the camera 180 degrees around
+ * 'W' - Switch between wire frame or solid polygon view mode
+ * 'S' - Switch to smooth shading
+ * 'F' - Switch to flat shading
  */
 
 // Global Variables
 GLint winWidth = 800, winHeight = 800;
 GLdouble time;
+bool wireFrame;
 
 // World Objects
 Camera myCamera;
@@ -28,8 +32,6 @@ Light myLight;
 
 //Array of Points
 Point *Points = (Point *)malloc(S*S*sizeof(Point));
-
-
 
 void init(void) {
 	glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -41,18 +43,23 @@ void init(void) {
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glShadeModel(GL_FLAT);
+	glShadeModel(GL_SMOOTH);
+	wireFrame = false;
+	glEnable(GL_COLOR_MATERIAL);
 }
 
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	myCamera.setProjectionMatrix();
 
+	//Should(TM) draw the matrix
+	if(!wireFrame)
+		DrawPoints(Points);
+	else
+		DrawPointsWire(Points);
+
 	//Draw world
 	myLight.draw();
-
-	//Should(TM) draw the matrix
-	DrawPoints(Points);
 
 	glFlush();
 	glutSwapBuffers();
@@ -78,7 +85,7 @@ void cameraRotate(int key, int x, int y){
 }
 
 void nightDay(){
-	myLight.rotate(0.00007);
+	myLight.rotate(0.0003);
 	glutPostRedisplay();
 }
 
@@ -97,8 +104,16 @@ void cameraMove(unsigned char key, int x, int y){
 		break;
 	case 'w':
 	case 'W':
-		printf("%.2f, %.2f, %.2f\n", myCamera.eye.x, myCamera.eye.y, myCamera.eye.z);
-		printf("%.2f, %.2f, %.2f\n", myCamera.ref.x, myCamera.ref.y, myCamera.ref.z);
+		if(wireFrame) wireFrame = false;
+		else wireFrame = true;
+		break;
+	case 's':
+	case 'S':
+		glShadeModel(GL_SMOOTH);
+		break;
+	case 'f':
+	case 'F':
+		glShadeModel(GL_FLAT);
 		break;
 	}
 	glutPostRedisplay();
@@ -127,20 +142,12 @@ int main(int argc, char** argv) {
 	printf("Array of points from the terrain map\n");
 	MatrixOfPoints(Points,Terrain);
 
-
-	//glewInit(); // for using GSLS
-
 	init();
 	DrawPoints(Points);
 	glutDisplayFunc(display);
 	glutKeyboardFunc(cameraMove);
 	glutSpecialFunc(cameraRotate);
 	glutIdleFunc(nightDay);
-	/*
-	glutMotionFunc(mouseMotion);
-	glutMouseFunc(mouseAction);
-	glutAttachMenu(GLUT_RIGHT_BUTTON);
-	*/
 	glutMainLoop();
 	return 0;
 
