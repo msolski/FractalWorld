@@ -23,7 +23,6 @@ using namespace std;
 
 // Global Variables
 GLint winWidth = 800, winHeight = 800;
-GLdouble time;
 bool wireFrame;
 
 // World Objects
@@ -35,7 +34,6 @@ Point *Points = (Point *)malloc(S*S*sizeof(Point));
 
 void init(void) {
 	glClearColor(0.0, 0.0, 0.0, 1.0);
-	time = 0;
 	glEnable(GL_LINE_SMOOTH);
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_BLEND);
@@ -85,7 +83,7 @@ void cameraRotate(int key, int x, int y){
 }
 
 void nightDay(){
-	myLight.rotate(0.0003);
+	myLight.rotate(0.0001);
 	glutPostRedisplay();
 }
 
@@ -132,14 +130,9 @@ int main(int argc, char** argv) {
 	int *Terrain = (int *)malloc(S*S*sizeof(int));
 
 	ClearArray(Terrain);
-	printf("Before diamond square\n");
-	PrintArray(Terrain);
 	DiamondSquare(Terrain);
-	printf("After diamond square\n");
-	PrintArray(Terrain);
 
 	//Creates a Matrix of points from the Terrain Matrix
-	printf("Array of points from the terrain map\n");
 	MatrixOfPoints(Points,Terrain);
 
 	init();

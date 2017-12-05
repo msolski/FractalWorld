@@ -7,6 +7,7 @@
 
 #include "DiamondSquare.hpp"
 
+
 int *Terrain;
 int modulo = rand()%1000;	//Bigger number, higher peaks and lower valleys
 int randomneg = modulo/2;	//allows a range of [modulo/2, -modulo/2]
@@ -36,46 +37,29 @@ void ClearArray(int *Terrain){
 
 //Passed the midpoint of a diamond
 void SquareStep(int *Terrain,int x, int y, int step_size, int r){
-
-	//printf("Square Step  \n");
-
 	int top = Terrain[S*(x)+(y-S)];
 	int left = Terrain[S*(x)+(y-1)];
 	int right = Terrain[S*(x)+(y+1)];
 	int bottom = Terrain[S*(x)+(y+S)];
 
-/*
-	printf("\n");
-	printf("   %d\n",top);
-	printf("%d     %d\n",left,right);
-	printf("   %d  \n",bottom);
-
-	printf(" %d == %d ?\n",x,S);
-*/
-
 	if (x==0){
 		int average = (left+right+bottom)/3;
 		Terrain[x*S + y] = average + r;
-		//printf("%d\n",r);
 
 	} else if (y==0){
 		int average = (top+right+bottom)/3;
 		Terrain[x*S + y] = average + r;
-		//printf("%d\n",r);
 
 	} else if (x==S-1){
 		int average = (top+left+right)/3;
 		Terrain[x*S + y] = average + r;
-		//printf("%d\n",r);
 
 	} else if (y==S-1){
 		int average = (top+left+bottom)/3;
 		Terrain[x*S + y] = average + r;
-		//printf("%d\n",r);
 	} else {
 		int average = (top+left+right+bottom)/4;
 		Terrain[x*S + y] = average + r;
-		//printf("%d\n",r);
 	}
 
 
@@ -84,7 +68,6 @@ void SquareStep(int *Terrain,int x, int y, int step_size, int r){
 //Passed the top left of a square
 void DiamondStep(int *Terrain,int x, int y, int step_size, int r){
 
-	//printf("Diamond Step \n");
 	int topleft = Terrain[S*(x)+y];
 	int topright = Terrain[S*(x+step_size)+y];
 	int bottomleft = Terrain[S*(x)+(y+step_size)];
@@ -99,15 +82,13 @@ void DiamondSquare(int *Terrain){
 
 
 	int a,b,c,d,r;
-
+	srand(time(NULL));
 
 	// Seeding section, seeds  the corner values with posotive and negative numbers
 	a = rand() % modulo + randomneg;
 	b = rand() % modulo + randomneg;
 	c = rand() % modulo + randomneg;
 	d = rand() % modulo + randomneg;
-
-	//printf("%d %d %d %d\n",a,b,c,d);
 
 
 	//Sets the seed values to the terrain matrix
@@ -147,60 +128,42 @@ void DiamondSquare(int *Terrain){
 		for (i=0; i<sqrt(amtsquares); i++){
 			y = step_size/2;
 			for (j=0; j<sqrt(amtsquares);j++) {
-				//printf("\n");
-				//printf("x = %d, y = %d\n",x,y);
-				//PrintArray(Terrain);
 
 				//top
 				int x1 = x - step_size/2;
 				int y1 = y;
 				int r1 = rand() % modulo + randomneg;
-				//printf("/////////////////////////////////////////////////\n");
-				//printf("%d %d\n", x1,y1);
 				SquareStep(Terrain,x1,y1,step_size,r1);
-				//PrintArray(Terrain);
 
 				//left
 				int x2 = x;
 				int y2 = y - step_size/2;
 				int r2 = rand() % modulo + randomneg;
-				//printf("/////////////////////////////////////////////////\n");
-				//printf("%d %d\n", x2,y2);
 				SquareStep(Terrain,x2,y2,step_size,r2);
-				//PrintArray(Terrain);
 
 				//bottom
 				int x3 = x + step_size/2;
 				int y3 = y;
 				int r3 = rand() % modulo + randomneg;
-				//printf("/////////////////////////////////////////////////\n");
-				//printf("%d %d\n", x3,y3);
 				SquareStep(Terrain,x3,y3,step_size,r3);
-				//PrintArray(Terrain);
 
 				//right
 				int x4 = x;
 				int y4 = y + step_size/2;
 				int r4 = rand() % modulo + randomneg;
-				//printf("/////////////////////////////////////////////////\n");
-				//printf("%d %d\n", x4,y4);
 				SquareStep(Terrain,x4,y4,step_size,r4);
-				//PrintArray(Terrain);
 				y += step_size;
 			}
 			x += step_size;
 
 
 		}
-		//printf("\n");
 		amtsquares *= 4;
 
 		step_size /= 2;
 		modulo /=2;
 		randomneg /= 2;
 	}
-	//printf("Completed Diamond Square\n");
-	//PrintArray(Terrain);
 }
 
 //Populates an Array of Points using the array of Terrain
@@ -222,7 +185,6 @@ void MatrixOfPoints(Point *Points, int *Terrain){
 
 			//Initializes the point at Points[x][y] to our values
 			Points[S*i + j].set(tempfx,tempfz,tempfy);
-			Points[S*i + j].printPoint();
 
 		}
 	}

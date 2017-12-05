@@ -59,12 +59,6 @@ void Camera::rotate(GLfloat angle){
 void Camera::translate(GLfloat dist){
 	Vector *v = new Vector(ref.x-eye.x, ref.y-eye.y, ref.z-eye.z);
 
-	/*
-	printf("e: %.1f, %.1f %.1f\n", eye.x, eye.y, eye.z);
-	printf("r: %.1f, %.1f %.1f\n", ref.x, ref.y, ref.z);
-	printf("v: %.1f, %.1f %.1f\n\n", v->x, v->y, v->z);
-	 */
-
 	eye.x += dist * v->x/5;
 	eye.y += dist * v->y/5;
 	eye.z += dist * v->z/5;

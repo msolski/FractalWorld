@@ -12,6 +12,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <cstdlib>
+#include <ctime>
 
 #include "Point.hpp"
 
